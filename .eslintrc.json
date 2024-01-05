@@ -1,0 +1,100 @@
+{
+    "root": true,
+    "parser": "@typescript-eslint/parser",
+    "env": {
+        "es6": true
+    },
+    "ignorePatterns": [
+        "node_modules",
+        "build",
+        "babel.config.js",
+        "metro.config.js",
+        "jest.config.js"
+    ],
+    "plugins": [
+        "import",
+        "eslint-comments",
+        "functional",
+        "react",
+        "react-native",
+        "react-hooks",
+        "@typescript-eslint"
+    ],
+    "extends": [
+        "eslint:recommended",
+        "plugin:eslint-comments/recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:import/typescript",
+        "plugin:functional/lite",
+        "prettier"
+    ],
+    "globals": {
+        "console": true,
+        "setInterval": "readonly",
+        "clearInterval": "readonly",
+        "setTimeout": "readonly"
+    },
+    "rules": {
+        "no-console": "error",
+        "functional/no-return-void": "off",
+        "functional/no-classes": "off",
+        "functional/no-mixed-types": "off",
+        "functional/no-throw-statement": "off",
+        "functional/no-let": "off",
+        "functional/prefer-readonly-type": "error",
+        "prefer-const": "error",
+        "functional/no-mixed-type": "off",
+        "react-hooks/exhaustive-deps": "warn",
+        "semi": ["error", "always"],
+        "object-curly-spacing": ["error", "always"],
+        "object-curly-newline": ["error", {
+            "ObjectExpression": { "multiline": true, "minProperties": 3 },
+            "ObjectPattern": { "multiline": true, "minProperties": 3 },
+            "ImportDeclaration": "never",
+            "ExportDeclaration": { "multiline": true, "minProperties": 3 }
+        }],
+        "quotes": ["error"],
+        "@typescript-eslint/explicit-module-boundary-types": "off",
+        "eslint-comments/disable-enable-pair": [
+            "error",
+            {
+                "allowWholeFile": true
+            }
+        ],
+        "eslint-comments/no-unused-disable": "error",
+        "import/order": [
+            "error",
+            {
+                "newlines-between": "always",
+                "alphabetize": {
+                    "order": "asc"
+                }
+            }
+        ],
+        "key-spacing": [
+            "error",
+            {
+                "beforeColon": false
+            }
+        ],
+        "sort-imports": [
+            "error",
+            {
+                "ignoreDeclarationSort": true,
+                "ignoreCase": true
+            }
+        ],
+        "react-native/no-unused-styles": 2,
+        "react-native/split-platform-components": 2,
+        "react-native/no-inline-styles": 2,
+        "react-native/no-color-literals": 2,
+        "react-native/no-raw-text": 0,
+        "react-native/no-single-element-style-arrays": 2
+    },
+    "parserOptions": {
+        "project": "./tsconfig.json",
+        "ecmaFeatures": {
+            "jsx": true
+        }
+    }
+}
