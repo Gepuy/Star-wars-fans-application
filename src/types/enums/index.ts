@@ -8,3 +8,9 @@ export enum EHttpMethod {
 export enum EEnvVariables {
     API_ROOT = "API_ROOT"
 }
+
+export enum EGender {
+    MALE = "male",
+    FEMALE = "female",
+    NA = "n/a"
+}

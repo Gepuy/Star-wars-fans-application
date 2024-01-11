@@ -13,17 +13,26 @@
     "test": "jest"
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "^1.21.0",
     "@react-native-community/cli": "^13.2.0",
     "@react-navigation/native": "^6.1.9",
     "@react-navigation/native-stack": "^6.9.17",
     "@react-navigation/stack": "^6.3.20",
+    "@reduxjs/toolkit": "^2.0.1",
+    "@types/react-redux": "^7.1.33",
+    "@types/redux-persist": "^4.3.1",
     "axios": "^1.6.5",
+    "debounce": "^2.0.0",
+    "lottie-react-native": "^6.5.1",
     "react": "18.2.0",
     "react-native": "0.73.1",
     "react-native-config": "^1.5.1",
+    "react-native-fast-image": "^8.6.3",
     "react-native-gesture-handler": "^2.14.0",
     "react-native-safe-area-context": "^4.8.2",
     "react-navigation": "^5.0.0",
+    "react-redux": "^9.0.4",
+    "redux-persist": "^6.0.0",
     "styled-components": "^6.1.8"
   },
   "devDependencies": {

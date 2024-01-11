@@ -9,7 +9,9 @@
         "build",
         "babel.config.js",
         "metro.config.js",
-        "jest.config.js"
+        "jest.config.js",
+        "react-native.config.js"
+
     ],
     "plugins": [
         "import",
@@ -35,13 +37,13 @@
         "setTimeout": "readonly"
     },
     "rules": {
-        "no-console": "error",
+        "no-console": "off",
         "functional/no-return-void": "off",
         "functional/no-classes": "off",
         "functional/no-mixed-types": "off",
         "functional/no-throw-statement": "off",
         "functional/no-let": "off",
-        "functional/prefer-readonly-type": "error",
+        "functional/prefer-readonly-type": "warn",
         "prefer-const": "error",
         "functional/no-mixed-type": "off",
         "react-hooks/exhaustive-deps": "warn",
@@ -89,7 +91,8 @@
         "react-native/no-inline-styles": 2,
         "react-native/no-color-literals": 2,
         "react-native/no-raw-text": 0,
-        "react-native/no-single-element-style-arrays": 2
+        "react-native/no-single-element-style-arrays": 2,
+        "@typescript-eslint/no-var-requires": "off"
     },
     "parserOptions": {
         "project": "./tsconfig.json",
