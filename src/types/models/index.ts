@@ -8,7 +8,9 @@ export type ConfigState = {
 
 export type RootStackParamList = {
     readonly HomeScreen: undefined,
-    readonly CharacterDetailsScreen: undefined,
+    readonly CharacterDetailsScreen: {
+        readonly name: string;
+    },
 }
 
 export type NavigationProps = NativeStackNavigationProp<RootStackParamList>;

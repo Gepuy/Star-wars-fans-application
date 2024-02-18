@@ -6,3 +6,6 @@ export * from "./app-header/app-header.styled.ts";
 export * from "./back-button/back-button.tsx";
 export * from "./text/text.styled.ts";
 export * from "./loader/loader.tsx";
+export * from "./character";
+export * from "./app-card";
+export * from "./like-button/like-button.tsx";

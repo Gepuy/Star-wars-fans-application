@@ -14,3 +14,9 @@ export enum EGender {
     FEMALE = "female",
     NA = "n/a"
 }
+
+export enum EFontFamily {
+    ROBOTO = "Roboto-Regular",
+    STARJEDI = "Starjedi",
+    MONTSERRAT = "Montserrat"
+}

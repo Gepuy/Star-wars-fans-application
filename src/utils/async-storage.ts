@@ -19,3 +19,11 @@ export async function setDataToStorage(key: string, value: unknown) {
         errorService.handle(e as string);
     }
 }
+
+export async function clearAllDataFromStorage() {
+    try {
+        await AsyncStorage.clear();
+    } catch (e) {
+        errorService.handle(e as string);
+    }
+}

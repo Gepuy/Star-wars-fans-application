@@ -7,8 +7,8 @@ import { RootNavigator } from "./navigation";
 import { persistor, store } from "./store";
 
 
-function App(): React.JSX.Element {
 
+function App(): React.JSX.Element {
     return (
         <Provider store={store}>
             <PersistGate loading={null} persistor={persistor}>

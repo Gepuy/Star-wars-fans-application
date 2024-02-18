@@ -1,46 +1,41 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo } from "react";
 import styled from "styled-components/native";
 
-import { AppView, Loader } from "../components";
-import { getCharactersData } from "../managers/characters-manager.ts";
-import { ICharacter } from "../types";
+import { AppView, CharacterList, GenderFavouritesSection, Loader, ScrollViewAppCard, StyledText } from "../components";
+import { useAppDispatch, useAppSelector } from "../hooks";
+import { fetchCharacters } from "../store/slices/characters/thunk.ts";
+import { clearFavourites } from "../store/slices/favourites/thunk.ts";
+import { EFontFamily, FAVOURITES_KEY, IFavourite } from "../types";
+import { getDataFromStorage, getScreenWidthWithMargin } from "../utils";
 
 export const HomeScreen = () => {
-    const [isLoading, setIsLoading] = useState(false);
-    const [characters, setCharacters] = useState<ReadonlyArray<ICharacter>>([]);
-    // const [nextPage, setNextPage] = useState<string | null>(null);
-    // const [prevPage, setPrevPage] = useState<string | null>(null);
+    const { characters, loading } = useAppSelector((state) => state.characters);
+    const { favourites, count } = useAppSelector((state) => state.favourites);
+    const dispatch = useAppDispatch();
+
+    const favouritesData = useMemo(() => {
+        return [{ title: "Male fans", value: count.male }, { title: "Female fans", value: count.female }, { title: "others", value: count.other }];
+    }, [count]);
 
     useEffect(() => {
-        console.log("here");
-        setIsLoading(true);
-        getCharactersData()
-            .then((data) => {
-                if (data) {
-                    setCharacters(data.results);
-                }
-            })
-            .catch()
-            .finally(() => setIsLoading(false));
-    }, []);
+        dispatch(fetchCharacters());
+    }, [dispatch]);
 
-    console.log(characters);
-
-    const renderGenderCard = () => {
-        return (
-            <GenderContainer>
-
-            </GenderContainer>
-        );
-    };
+    getDataFromStorage<ReadonlyArray<IFavourite>>(FAVOURITES_KEY).then(data => console.log('fav from async store', data))
 
     return (
         <AppView title="Star Wars Favorites" shouldShowLogo={true}>
-            {!isLoading ? (
+            {!loading ? (
                 <>
-                    <GenderContainer>
-                        {renderGenderCard()}
-                    </GenderContainer>
+                    <ScrollViewAppCard>
+                        <GenderFavouritesSection
+                            data={favouritesData}
+                        />
+                        <StyledButton onPress={() => dispatch(clearFavourites())}>
+                            <StyledText font={EFontFamily.MONTSERRAT}>Reset</StyledText>
+                        </StyledButton>
+                        <CharacterList data={characters}/>
+                    </ScrollViewAppCard>
                 </>
             ) : (
                 <Loader/>
@@ -49,6 +44,15 @@ export const HomeScreen = () => {
     );
 };
 
-const GenderContainer = styled.View`
-
+const StyledButton = styled.TouchableOpacity`
+    border-radius: 10px;
+    margin-bottom: 10px;
+    height: 40px;
+    width: ${getScreenWidthWithMargin()}px;
+    background-color: aqua;
+    align-items: center;
+    justify-content: center;
 `;
+
+
+

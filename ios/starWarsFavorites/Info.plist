@@ -50,6 +50,8 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>Starjedi.ttf</string>
+		<string>Roboto-Regular.ttf</string>
+		<string>Montserrat.ttf</string>
 	</array>
 </dict>
 </plist>

@@ -5,6 +5,7 @@ import { getScreenWidthWithMargin } from "../../utils";
 
 export const StyledHeader = styled.View<{readonly height: number}>`
   min-height: ${({ height }) => height}px;
+  padding-bottom: 10px;
   width: ${getScreenWidthWithMargin()}px;
   flex-direction: row;
   justify-content: space-between;
