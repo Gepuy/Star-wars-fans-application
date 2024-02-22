@@ -1,38 +1,38 @@
 import { useNavigation } from "@react-navigation/native";
-import { FlashList } from "@shopify/flash-list";
-import React, { useEffect } from "react";
-import { View } from "react-native";
+import React, { useCallback } from "react";
+import { FlatList, View } from "react-native";
 import styled from "styled-components/native";
-import { useAppDispatch, useAppSelector } from "../../hooks";
-import { addFavourite, removeFavourite } from "../../store/slices/favourites/thunk.ts";
 
-import { EFontFamily, ICharacter, NavigationProps } from "../../types";
+import { useAppDispatch } from "../../hooks";
+import { addFavourite, removeFavourite } from "../../store/slices/favourites/thunk.ts";
+import { EFontFamily, ICharacter, IFavourite, NavigationProps } from "../../types";
 import { getScreenWidthWithMargin } from "../../utils";
 import { LikeButton } from "../like-button/like-button.tsx";
 import { StyledText } from "../text/text.styled.ts";
 
 type CharacterListProps = {
     readonly data: ReadonlyArray<ICharacter>
+    readonly favourites: ReadonlyArray<IFavourite>
 }
 
 const ITEM_HEIGHT = 60;
 
-export const CharacterList = ({ data }: CharacterListProps) => {
+export const CharacterList = ({ data, favourites }: CharacterListProps) => {
     const { navigate } = useNavigation<NavigationProps>();
     const dispatch = useAppDispatch();
-    const { favourites } = useAppSelector(state => state.favourites);
 
     const onItemPress = (item: ICharacter) => {
         navigate("CharacterDetailsScreen", { name: item.name });
     };
-    console.log('favorites', favourites);
 
-    const onLikeButtonPress = async (item: ICharacter) => {
+    const getIsCharacterSaved = useCallback((itemId: string) => {
+        return !!favourites?.find(favourite => favourite.id === itemId);
+    }, [favourites]);
+
+    const onLikeButtonPress = (item: ICharacter) => {
         const selectedCharacter = { gender: item.gender, id: item.url };
-        console.log('fav before isItem', favourites);
 
-        // Check if the selectedCharacter.id is present in the favourites array
-        const isItemAdded = favourites.some(favorite => favorite.id === selectedCharacter.id);
+        const isItemAdded = getIsCharacterSaved(selectedCharacter.id);
 
         if (isItemAdded) {
             dispatch(removeFavourite(selectedCharacter));
@@ -40,9 +40,8 @@ export const CharacterList = ({ data }: CharacterListProps) => {
             dispatch(addFavourite(selectedCharacter));
         }
     };
-
     const renderCharacterItem = ({ item }: { readonly item: ICharacter}) => {
-
+        const isLiked = getIsCharacterSaved(item.url);
 
         return (
             <StyledItemCard onPress={() => onItemPress(item)} key={item.url}>
@@ -52,18 +51,17 @@ export const CharacterList = ({ data }: CharacterListProps) => {
                         <StyledText size={13} font={EFontFamily.MONTSERRAT} alignSelf="flex-start" alignText="center">{item.gender}</StyledText>
                     </View>
                 </InfoContainer>
-                <LikeButton onPressFromParent={() => onLikeButtonPress(item)}/>
+                <LikeButton onPressFromParent={() => onLikeButtonPress(item)} isItemLiked={isLiked}/>
             </StyledItemCard>
         );
     };
 
     return (
-        <FlashList
+        <FlatList
             data={data}
-            estimatedItemSize={200}
             renderItem={renderCharacterItem}
             showsVerticalScrollIndicator={false}
-            estimatedListSize={{ height: ITEM_HEIGHT, width: getScreenWidthWithMargin() }}
+            extraData={favourites}
         />
     );
 };

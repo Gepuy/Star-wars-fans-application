@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Pressable } from "react-native";
 import { StyleSheet } from "react-native";
 import FastImage from "react-native-fast-image";
@@ -8,16 +8,16 @@ import Animated, { Extrapolate,
     useSharedValue,
     withSpring, } from "react-native-reanimated";
 import styled from "styled-components/native";
-import { ICharacter } from "../../types";
 
 import { filledHeartIcon, outlinedHeartIcon } from "../../utils";
 
 type LikeButtonProps = {
     readonly onPressFromParent?: () => void;
+    readonly isItemLiked: boolean;
 }
 
-export const LikeButton = ({ onPressFromParent }: LikeButtonProps) => {
-    const liked = useSharedValue(0);
+export const LikeButton = ({ onPressFromParent, isItemLiked }: LikeButtonProps) => {
+    const liked = useSharedValue(isItemLiked ? 1 : 0);
 
     const outlineStyle = useAnimatedStyle(() => {
         return {
@@ -35,12 +35,18 @@ export const LikeButton = ({ onPressFromParent }: LikeButtonProps) => {
     });
 
     const onLikePress = () => {
-        // eslint-disable-next-line functional/immutable-data
-        liked.value = withSpring(liked.value ? 0 : 1);
         if (onPressFromParent) {
             onPressFromParent();
         }
+        // eslint-disable-next-line functional/immutable-data
+        liked.value = withSpring(liked.value ? 0 : 1);
     };
+
+    useEffect(() => {
+        // eslint-disable-next-line functional/immutable-data
+        if (!isItemLiked) liked.value = withSpring(0);
+
+    }, [isItemLiked, liked]);
 
     return (
         <Pressable onPress={onLikePress}>

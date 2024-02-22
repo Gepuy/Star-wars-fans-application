@@ -9,3 +9,4 @@ export * from "./loader/loader.tsx";
 export * from "./character";
 export * from "./app-card";
 export * from "./like-button/like-button.tsx";
+export * from "./pagination/pagination.tsx";

@@ -35,7 +35,7 @@ const favouritesSlice = createSlice({
             const updatedCount = {
                 male: newFavorite.gender === "male" ? state.count.male + 1 : state.count.male,
                 female: newFavorite.gender === "female" ? state.count.female + 1 : state.count.female,
-                other: newFavorite.gender === "n/a" ? state.count.other + 1 : state.count.other
+                other: newFavorite.gender.startsWith("n") ? state.count.other + 1 : state.count.other
             };
 
             return {
@@ -47,10 +47,11 @@ const favouritesSlice = createSlice({
         builder.addCase(removeFavourite.fulfilled, (state, action) => {
             const { updatedFavourites, favourite } = action.payload;
 
-            // Update count based on the gender of the removed favorite
-            const updatedCount = { ...state.count };
-            // eslint-disable-next-line functional/immutable-data
-            updatedCount[favourite.gender] -= 1;
+            const updatedCount = {
+                male: favourite.gender === "male" ? state.count.male - 1 : state.count.male,
+                female: favourite.gender === "female" ? state.count.female - 1 : state.count.female,
+                other: favourite.gender.startsWith("n") ? state.count.other - 1 : state.count.other
+            };
 
             return {
                 ...state,

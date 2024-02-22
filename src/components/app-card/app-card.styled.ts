@@ -8,7 +8,7 @@ export const StyledAppCard = styled.View<{
 }>`
   ${IS_IOS && "margin-right: 20px;"}
   ${IS_IOS && "margin-left: 20px;"}
-  height: ${({ height }) => height ? height : getScreenHeight() - 90}px;
+  height: ${({ height }) => height ? height : getScreenHeight() - 50}px;
   align-self: center;
   justify-content: center;
   align-items: center;

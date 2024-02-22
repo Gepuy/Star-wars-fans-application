@@ -7,9 +7,9 @@ import { ACTIONS } from "./types.ts";
 
 export const fetchCharacters = createAsyncThunk(
     ACTIONS.FETCH_CHARACTERS,
-    async (_, { rejectWithValue }) => {
+    async (page: number = 1, { rejectWithValue }) => {
         try {
-            return await getCharactersData();
+            return await getCharactersData(page);
         } catch (e) {
             rejectWithValue(e);
         }
