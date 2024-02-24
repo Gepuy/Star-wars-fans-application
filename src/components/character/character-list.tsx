@@ -4,7 +4,7 @@ import { FlatList, View } from "react-native";
 import styled from "styled-components/native";
 
 import { useAppDispatch } from "../../hooks";
-import { addFavourite, removeFavourite } from "../../store/slices/favourites/thunk.ts";
+import { addFavourite, removeFavourite } from "../../store";
 import { EFontFamily, ICharacter, IFavourite, NavigationProps } from "../../types";
 import { getScreenWidthWithMargin } from "../../utils";
 import { LikeButton } from "../like-button/like-button.tsx";
@@ -22,7 +22,15 @@ export const CharacterList = ({ data, favourites }: CharacterListProps) => {
     const dispatch = useAppDispatch();
 
     const onItemPress = (item: ICharacter) => {
-        navigate("CharacterDetailsScreen", { name: item.name });
+        navigate("CharacterDetailsScreen", {
+            name: item.name,
+            height: item?.height,
+            eyeColor: item?.eye_color,
+            mass: item?.mass,
+            skinColor: item?.skin_color,
+            gender: item?.gender,
+            birthYear: item?.birth_year
+        });
     };
 
     const getIsCharacterSaved = useCallback((itemId: string) => {

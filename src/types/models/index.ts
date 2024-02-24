@@ -10,6 +10,12 @@ export type RootStackParamList = {
     readonly HomeScreen: undefined,
     readonly CharacterDetailsScreen: {
         readonly name: string;
+        readonly height?: string;
+        readonly mass?: string;
+        readonly birthYear?: string;
+        readonly eyeColor?: string;
+        readonly gender?: EGender;
+        readonly skinColor?: string;
     },
 }
 

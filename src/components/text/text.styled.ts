@@ -13,6 +13,7 @@ export const StyledText = styled.Text<{
     readonly marginLeft?: number;
     readonly marginTop?: number;
     readonly marginBottom?: number;
+    readonly isBold?: boolean;
 }>`
   font-family: ${({ font }) =>  font ? font : EFontFamily.STARJEDI};;
   align-items: center;
@@ -24,4 +25,5 @@ export const StyledText = styled.Text<{
   margin-left: ${({ marginLeft }) => marginLeft ? marginLeft : 0}px;
   margin-top: ${({ marginTop }) => marginTop ? marginTop : 0}px;
   margin-bottom: ${({ marginBottom }) => marginBottom ? marginBottom : 0}px;
+  font-weight: ${({ isBold }) => isBold ? "bold" : "normal"}
 `;

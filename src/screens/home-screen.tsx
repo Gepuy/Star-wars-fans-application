@@ -4,8 +4,7 @@ import styled from "styled-components/native";
 import { AppView, CharacterList, GenderFavouritesSection, Loader, ScrollViewAppCard, StyledText } from "../components";
 import Pagination from "../components/pagination/pagination.tsx";
 import { useAppDispatch, useAppSelector } from "../hooks";
-import { fetchCharacters } from "../store/slices/characters/thunk.ts";
-import { clearFavourites } from "../store/slices/favourites/thunk.ts";
+import { clearFavourites, fetchCharacters } from "../store";
 import { EFontFamily } from "../types";
 import { getScreenWidthWithMargin } from "../utils";
 
